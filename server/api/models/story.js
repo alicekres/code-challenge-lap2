@@ -1,6 +1,6 @@
-const db = require('../dbConfig/initdb');
+const db = require('../dbConfig');
 
-class Story {
+module.exports = class Story {
     constructor(data) {
         this.id = data.id;
         this.title = data.title;
@@ -15,7 +15,9 @@ class Story {
                 const stories = storyData.rows.map((s) => new Story(s));
                 resolve(stories);
             } catch (err) {
-                reject('Error retrieving dogs');
+                reject(
+                    'Error retrieving stories from database! This error is from models/story!'
+                );
             }
         });
     }
@@ -24,30 +26,30 @@ class Story {
         return new Promise(async (resolve, reject) => {
             try {
                 let storyData = await db.query(
-                    'SELECT * FROM stories JOIN users ON stories.user_id = user.id WHERE stories.id = $1',
+                    'SELECT * FROM stories WHERE id = $1',
                     [id]
                 );
-
                 let story = new Story(storyData.rows[0]);
                 resolve(story);
             } catch (err) {
-                reject('Story not found');
+                reject('Story not found! This Error is from models!');
             }
         });
     }
 
-    static create(title, story) {
+    static create(newStory) {
         return new Promise(async (resolve, reject) => {
             try {
                 let storyData = await db.query(
-                    'INSERT INTO stories(title, pseudonym, story) VALUES ($1, $2, $3) RETURNING *;',
-                    [title, pseudonym, story]
+                    'INSERT INTO stories(title, pseudonym, story) VALUES ($1, $2, $3) RETURNING stories;'[
+                        (newStory.title, newStory.pseudonym, newStory.story)
+                    ]
                 );
-                let newStory = new Story(storyData.rows[0]);
-                resolve(newStory);
+                let story = storyData.rows[0];
+                resolve(story);
             } catch (err) {
-                reject('Error creating a dog');
+                reject('Error creating a post!');
             }
         });
     }
-}
+};

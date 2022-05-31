@@ -1,30 +1,40 @@
+const express = require('express');
+const cors = require('cors');
+
+const app = express();
+
+app.use(express.json());
+app.use(cors());
+
 const Story = require('../models/story');
 
-const index = async (req, res) => {
+app.get('/', async (req, res) => {
     try {
         const stories = await Story.all;
-        res.status(200).json(stories);
+        res.status(200).send(stories);
     } catch (err) {
-        res.status(500).json({ err });
+        res.status(500).send(err);
     }
-};
+});
 
-const show = async (req, res) => {
+app.get('/:id', async (req, res) => {
     try {
-        const story = await Story.findById(req.params.id);
-        res.status(200).json(story);
+        const storyId = req.params.id;
+        let storyData = await Story.findById(storyId);
+        res.status(200).send(storyData);
     } catch (err) {
-        res.status(404).json({ err });
+        res.status(500).send(err);
     }
-};
+});
 
-const create = async (req, res) => {
+app.post('/', async (req, res) => {
     try {
-        const story = await Story.create(req.body);
-        res.status(201).json(story);
+        let storyData = req.body;
+        let newStory = await Story.create(storyData);
+        res.status(201).send(newStory);
     } catch (err) {
-        res.status(422).json({ err });
+        res.status(500).send(err);
     }
-};
+});
 
-module.exports = { index, show, create };
+module.exports = app;
