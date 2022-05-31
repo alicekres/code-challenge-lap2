@@ -1,8 +1,10 @@
+const db = require('../dbConfig/initdb');
+
 class Story {
     constructor(data) {
         this.id = data.id;
-        this.pseudonym = data.pseudonym;
         this.title = data.title;
+        this.pseudonym = data.pseudonym;
         this.story = data.story;
     }
 
