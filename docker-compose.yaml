@@ -34,7 +34,7 @@ services:
         image: postgres
         volumes:
             - 'dbdata:/var/lib/postgresql/data'
-            - './db:docker-entrypoint-initdb.d/:al'
+            - './api/dbConfig:/docker-entrypoint-initdb.d/:al'
         environment:
             - POSTGRES_DB=stories
             - POSTGRES_USER=alicekres
