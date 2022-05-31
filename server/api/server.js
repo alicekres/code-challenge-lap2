@@ -9,6 +9,4 @@ const storyRoutes = require('./controllers/stories');
 
 app.use('/stories', storyRoutes);
 
-app.get('/', (req, res) => res.send('Hello, world!'));
-
 module.exports = app;
