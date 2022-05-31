@@ -1,41 +1,44 @@
 version: '3'
 services:
     api:
-        image: node:12.18.4
+        image: node:16.15.0
+        working_dir: /code
         ports:
             - 3000:3000
         environment:
-            - PGUSER=alicekres
+            - PGUSER=admin
             - PGHOST=db
             - PGPASSWORD=storiespass
             - PGDATABASE=stories
             - PGPORT=5432
         volumes:
             - type: bind
-              source: ./api
+              source: ./server/api
               target: /code
-        working_dir: /code
+
         command: bash -c "npm install && npm start"
         depends_on:
             - db
 
     client:
-        image: node:12.18.4
+        image: node:16.15.0
         ports:
-            - 8080:8080
+            - 8000:8000
         volumes:
             - type: bind
               source: ./client
-              target: /client
-        working_dir: /client
+              target: /code
+        working_dir: /code
         command: bash -c "npm install && npm run dev"
 
     db:
         image: postgres
         volumes:
             - 'dbdata:/var/lib/postgresql/data'
-            - './api/dbConfig:/docker-entrypoint-initdb.d/:al'
+            - './server/db:/docker-entrypoint-initdb.d/:ro'
         environment:
             - POSTGRES_DB=stories
-            - POSTGRES_USER=alicekres
+            - POSTGRES_USER=admin
             - POSTGRES_PASSWORD=storiespass
+volumes:
+    dbdata:
