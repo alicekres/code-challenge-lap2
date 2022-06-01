@@ -52,7 +52,7 @@ textarea:focus {
     color: rgb(162, 160, 160);
 }
 
-.form button {
+button {
     cursor: pointer;
     border: 1px solid;
     padding: 10px;
@@ -63,4 +63,8 @@ textarea:focus {
 
 .button {
     text-align: center;
+}
+
+.hidden {
+    display: none;
 }

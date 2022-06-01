@@ -7,8 +7,6 @@ app.use(express.json());
 
 const storyRoutes = require('./controllers/stories');
 
-app.use('/stories', storyRoutes);
-
-app.get('/', (req, res) => res.send(`Let's get these stories going!`));
+app.use('/', storyRoutes);
 
 module.exports = app;
