@@ -4,31 +4,42 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Code-Challenge-lap2</title>
-        <script src="./static/js/layout.js"></script>
+        <title>StoryTelling</title>
+        <script defer src="./static/js/layout.js"></script>
         <link rel="stylesheet" href="./static/css/index.css" />
     </head>
+
     <body>
-        <section class="form-section">
-            <form class="form">
-                <div class="small-section">
-                    <label for="title" class="title">Title</label>
-                    <input type="title" placeholder="A title for your thoughts.." id="title" name="title" />
-                </div>
-                <div>
-                    <h1>Name</h1>
-                    <div id="random-name"></div>
-                    <button id="generate">Generate An Alias</button>    
-                </div>
-                <div class="small-section">
-                    <label for="story" class="story">Your story...</label>
-                    <textarea id="story" placeholder="What's good, slime?" rows="6"></textarea>
-                </div>
-                <div>
-                    <button>Publish</button>
-                </div>
-            </form>
-        </section>
-        
+        <form class="form">
+            <div class="small-section">
+                <label for="title"></label>
+                <input
+                    type="title"
+                    placeholder="Title"
+                    id="title"
+                    name="title"
+                />
+            </div>
+            <div class="small-section">
+                <label for="pseudonym"></label>
+                <input
+                    type="pseudonym"
+                    placeholder="A dream name..."
+                    id="pseudonym"
+                    name="pseudonym"
+                />
+            </div>
+            <div class="small-section">
+                <label for="story"></label>
+                <textarea
+                    id="story"
+                    placeholder="Your story..."
+                    rows="6"
+                ></textarea>
+            </div>
+            <div class="button">
+                <button>Publish</button>
+            </div>
+        </form>
     </body>
 </html>
